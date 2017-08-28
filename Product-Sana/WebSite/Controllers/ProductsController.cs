@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductsDLL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +13,9 @@ namespace WebSite.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            return View();
+            var model = new List<Product>();
+            model = Biz.Product().GetProductList();
+            return View(model);
         }
 
         public ActionResult Create()
@@ -22,6 +25,9 @@ namespace WebSite.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection model)
         {
+
+
+            
 
             ProductModel prd = new ProductModel
             {
@@ -33,8 +39,18 @@ namespace WebSite.Controllers
             var categories = model["Categories[]"];
             prd.Categories = categories.Split(',');
 
+            Product product = new Product
+            {
+                SKU = prd.SKU,
+                ProductName = prd.ProductName,
+                ProductDescription = prd.ProductDescription,
+                CurrentUnitPrice = prd.CurrentUnitPrice,
+                Categories = prd.Categories
+            };
 
-            return View();
+            prd.ErrorMessage = Biz.Product().AddProductCache(product);
+
+            return View(prd);
         }
 
     }

@@ -6,6 +6,14 @@ using System.Web;
 
 namespace WebSite.Models
 {
+
+    public class ProductIndexModel
+    {
+
+    }
+
+
+
     public class ProductModel
     {
         public int Id { get; set; }
@@ -19,6 +27,8 @@ namespace WebSite.Models
         public string CurrentUnitPrice { get; set; }
         [DisplayName("Categories")]
         public string[] Categories { get; set; }
+
+        public string ErrorMessage { get; set; }
 
     }
 }

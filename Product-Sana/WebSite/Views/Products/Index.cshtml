@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebSite.Models.ProductModel>
+﻿@model IEnumerable<ProductsDLL.Product>
 
 @{
     ViewBag.Title = "Index";
@@ -34,7 +34,7 @@
             {
                 <tr>
                     <td>
-                        @Html.LabelFor(modelItem => item.ProductDescription)                           
+                                               
                         @Html.DisplayFor(modelItem => item.SKU)
                     </td>
                     <td>

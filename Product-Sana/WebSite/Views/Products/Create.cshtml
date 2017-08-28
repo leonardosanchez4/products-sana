@@ -4,6 +4,30 @@
     ViewBag.Title = "Create";
 }
 
+@{
+    if (Model != null)
+    {
+        if (Model.ErrorMessage != "")
+        {
+            if (Model.ErrorMessage == "OK")
+            {
+                <div class="alert alert-success">
+                    <strong>Record Successfully Saved!</strong> 
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <strong>Error! @Model.ErrorMessage </strong> 
+                </div>
+            }
+        }
+    }
+
+}
+
+
+
 <h2>Create</h2>
 
 
