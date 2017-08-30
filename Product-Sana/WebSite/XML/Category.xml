@@ -1,0 +1,14 @@
+﻿<ArrayOfCategory xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Category>
+    <Id>0</Id>
+    <CategoryName>BEVERAGES</CategoryName>
+  </Category>
+  <Category>
+    <Id>1</Id>
+    <CategoryName>FOODS</CategoryName>
+  </Category>
+  <Category>
+    <Id>2</Id>
+    <CategoryName>FISH</CategoryName>
+  </Category>
+</ArrayOfCategory>

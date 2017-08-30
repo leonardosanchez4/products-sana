@@ -1,0 +1,22 @@
+﻿<ArrayOfProduct xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Product>
+    <Id>0</Id>
+    <SKU>1</SKU>
+    <ProductName>BEER</ProductName>
+    <ProductDescription>BEER</ProductDescription>
+    <CurrentUnitPrice>12</CurrentUnitPrice>
+    <Categories>
+      <string>0</string>
+    </Categories>
+  </Product>
+  <Product>
+    <Id>0</Id>
+    <SKU>2</SKU>
+    <ProductName>VODKA</ProductName>
+    <ProductDescription>VODKA</ProductDescription>
+    <CurrentUnitPrice>3</CurrentUnitPrice>
+    <Categories>
+      <string>0</string>
+    </Categories>
+  </Product>
+</ArrayOfProduct>

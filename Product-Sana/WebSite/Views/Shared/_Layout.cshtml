@@ -17,15 +17,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Products Portal", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Categories", "Index", "Category")</li>
+                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>
+                        <a>Storage Engine</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="Storage-checkbox" data-on-text="XML" data-off-text="Memory" @{
+                            if (ViewBag.storage == "XML")
+                            {
+                                @Html.Raw("checked")
+                            }
+                            else
+                            {
+                                @Html.Raw("")
+                            }
+                        } >
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -39,6 +55,37 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script>
+        $("[name='Storage-checkbox']").bootstrapSwitch();
+
+        $('input[name="Storage-checkbox"]').on('switchChange.bootstrapSwitch', function (event, state) {
+            console.log(this); // DOM element
+            console.log(event); // jQuery event
+            console.log(state); // true | false
+
+            if (!window.location.origin) {
+                window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            }
+            
+            var storageurl;
+            if (state) {
+                storageurl = window.location.origin + "/Storage/SetStorage?st=true";
+            }
+            else
+            {
+                storageurl = window.location.origin + "/Storage/SetStorage?st=false";
+            }
+                $.ajax({
+                    url: storageurl , success: function (result) {
+                       
+                    }
+                });
+                        
+        });
+ 
+    </script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

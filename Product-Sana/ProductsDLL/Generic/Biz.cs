@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductsDLL.Categories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace ProductsDLL
         public static ProductRepository Product()
         {
             return new ProductRepository(AppSettingKeyDefault);
+        }
+
+        public static CategoryRepository Category()
+        {
+            return new CategoryRepository(AppSettingKeyDefault);
         }
     }
 }

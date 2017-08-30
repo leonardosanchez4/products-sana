@@ -75,9 +75,16 @@
             @Html.LabelFor(model => model.Categories, htmlAttributes: new { @class = "control-label col-md-2" })
             <div  class="col-md-10">
                 <select name="Categories[]" id="Categories" class="selectpicker" multiple>
-                    <option value="1">Mustard</option>
-                    <option value="2">Ketchup</option>
-                    <option value="3">Relish</option>
+                    @{
+                        if (Model != null)
+                        {
+                            foreach (var item in Model.CategoriesList)
+                            {
+                                <option value="@item.Id">@item.CategoryName</option>
+                            }
+                        }
+
+                    }
                 </select>
             </div>
         </div>
@@ -99,6 +106,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+
+        @Html.Raw(Model.MultiselectScript)
+
+
         $('.selectpicker').selectpicker({
             style: 'btn-info',
             size: 4
