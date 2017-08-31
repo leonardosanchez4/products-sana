@@ -163,7 +163,33 @@ namespace ProductsDLL
             return product;
         }
 
+        public void DeleteProduct(string storage, string SKU)
+        {
+            List<Product> list;
+            if (storage == "Cache")
+            {
+                list = CacheContent<Product>("ProductList");
+            }
+            else
+            {
+                list = FromXmlFile<List<Product>>("Product");
+            }
 
+
+            int index = list.FindIndex(f => f.SKU == SKU);
+
+            list.Remove(list[index]);
+
+
+            if (storage == "Cache")
+            {
+                CacheAdd("ProductList", list);
+            }
+            else
+            {
+                ToXmlFile(list, "Product");
+            }
+        }
     }
 
 }

@@ -1,0 +1,20 @@
+﻿@model WebSite.Models.ProductCategoryModel
+
+<div>
+    <h4>ProductCategoryModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { Name = Model.CategoryName }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

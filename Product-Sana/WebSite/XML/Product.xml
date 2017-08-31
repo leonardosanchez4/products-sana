@@ -3,10 +3,11 @@
     <Id>0</Id>
     <SKU>1</SKU>
     <ProductName>BEER</ProductName>
-    <ProductDescription>BEER</ProductDescription>
+    <ProductDescription>BEER LAGER</ProductDescription>
     <CurrentUnitPrice>12</CurrentUnitPrice>
     <Categories>
       <string>0</string>
+      <string>1</string>
     </Categories>
   </Product>
   <Product>

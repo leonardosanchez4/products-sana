@@ -12,6 +12,6 @@ namespace WebSite.Models
         public int Id { get; set; }
         [DisplayName("Name")]
         public string CategoryName { get; set; }
-
+        public object ErrorMessage { get; internal set; }
     }
 }

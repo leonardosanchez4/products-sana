@@ -135,8 +135,9 @@ namespace WebSite.Controllers
         // GET: Category/Details/5
         public ActionResult Details(string sku)
         {
-            ViewBag.Storage = this.Session["_STORAGE"];
-            var product = Biz.Product().GetProduct("XML",sku);
+            var storage = this.Session["_STORAGE"];
+            ViewBag.Storage = storage;
+            var product = Biz.Product().GetProduct(storage.ToString(),sku);
 
             ProductModel prd = new ProductModel
             {
@@ -146,10 +147,57 @@ namespace WebSite.Controllers
                 CurrentUnitPrice = product.CurrentUnitPrice,
                 Categories = product.Categories
             };
-            prd.CategoriesList = Biz.Category().GetCategoryList("XML");
+            prd.CategoriesList = Biz.Category().GetCategoryList(storage.ToString());
             prd.ErrorMessage = "";
             return View(prd);
         }
+
+
+
+        // GET: Products/Delete/5
+        public ActionResult Delete(string SKU)
+        {
+
+            var storage = this.Session["_STORAGE"];
+            ViewBag.Storage = storage;
+            var product = Biz.Product().GetProduct(storage.ToString(), SKU);
+
+            ProductModel prd = new ProductModel
+            {
+
+                SKU = product.SKU,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                CurrentUnitPrice = product.CurrentUnitPrice,
+                Categories = product.Categories
+            };
+            prd.CategoriesList = Biz.Category().GetCategoryList(storage.ToString().ToString());
+            prd.ErrorMessage = "";
+
+            prd.ErrorMessage = "";
+            return View(prd);
+        }
+
+        // POST: Products/Delete/5
+        [HttpPost]
+        public ActionResult Delete(string SKU, FormCollection collection)
+        {
+            try
+            {
+                var storage = this.Session["_STORAGE"];
+                ViewBag.Storage = storage;
+                Biz.Product().DeleteProduct(storage.ToString(), SKU);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
+
 
     }
 }

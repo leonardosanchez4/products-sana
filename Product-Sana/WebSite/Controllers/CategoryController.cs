@@ -19,13 +19,21 @@ namespace WebSite.Controllers
             model = Biz.Category().GetCategoryList(storage.ToString());
             return View(model);
 
-           
+
         }
 
         // GET: Category/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string Name)
         {
-            return View();
+            var storage = this.Session["_STORAGE"];
+            ViewBag.Storage = storage;
+            var cat = Biz.Category().GetCategory(storage.ToString(), Name);
+            ProductCategoryModel category = new ProductCategoryModel
+            {
+                CategoryName = cat.CategoryName,
+                Id = cat.Id
+            };
+            return View(category);
         }
 
         // GET: Category/Create
@@ -42,7 +50,7 @@ namespace WebSite.Controllers
             {
                 var storage = this.Session["_STORAGE"];
                 var cat = new Category { CategoryName = collection["CategoryName"] };
-                cat.ErrorMessage = Biz.Category().addCategory(storage.ToString(),cat);
+                cat.ErrorMessage = Biz.Category().addCategory(storage.ToString(), cat);
 
                 if (cat.ErrorMessage == "OK")
                 {
@@ -53,7 +61,7 @@ namespace WebSite.Controllers
                     var catModel = new ProductCategoryModel { CategoryName = cat.CategoryName };
                     return View(catModel);
                 }
-             
+
             }
             catch (Exception ex)
             {
@@ -62,41 +70,80 @@ namespace WebSite.Controllers
         }
 
         // GET: Category/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string Name)
         {
-            return View();
+            var storage = this.Session["_STORAGE"];
+            ViewBag.Storage = storage;
+            var cat = Biz.Category().GetCategory(storage.ToString(), Name);
+            ProductCategoryModel category = new ProductCategoryModel
+            {
+                CategoryName = cat.CategoryName,
+                Id = cat.Id
+            };
+
+            cat.ErrorMessage = "";
+            return View(category);
+
         }
 
         // POST: Category/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int Id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+                var storage = this.Session["_STORAGE"];
+                ViewBag.Storage = storage;
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                ProductCategoryModel category = new ProductCategoryModel
+                {
+                    CategoryName = collection["CategoryName"].ToString(),
+                    Id = Id
+                };
+                Category cat = new Category
+                {
+                    CategoryName = category.CategoryName,
+                    Id = category.Id
+                };
+
+                try
+                {
+                    category.ErrorMessage = Biz.Category().UpdateCategory(storage.ToString(), cat);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception Ex)
+                {
+                category.ErrorMessage = "Error Updating Record";
+                }
+                return View(category);
+                // TODO: Add update logic here           
         }
 
         // GET: Category/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string Name)
         {
-            return View();
+
+            var storage = this.Session["_STORAGE"];
+            ViewBag.Storage = storage;
+            var cat = Biz.Category().GetCategory(storage.ToString(), Name);
+
+            ProductCategoryModel category = new ProductCategoryModel
+            {
+                CategoryName = cat.CategoryName,
+                Id = cat.Id
+            };
+
+            cat.ErrorMessage = "";
+            return View(category);
         }
 
         // POST: Category/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string Name, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var storage = this.Session["_STORAGE"];
+                ViewBag.Storage = storage;
+                Biz.Category().DeleteCategory(storage.ToString(), Name);
                 return RedirectToAction("Index");
             }
             catch

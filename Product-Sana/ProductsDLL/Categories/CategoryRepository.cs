@@ -116,5 +116,90 @@ namespace ProductsDLL.Categories
             }
 
         }
+
+
+
+
+        public Category GetCategory(string storage, string Name)
+        {
+            List<Category> list;
+            if (storage == "Cache")
+            {
+                list = CacheContent<Category>("CategoryList");
+            }
+            else
+            {
+                list = FromXmlFile<List<Category>>("Category");
+            }
+            var Category = list.Find(p => p.CategoryName == Name);
+            return Category;
+        }
+
+
+
+
+        public void DeleteCategory(string storage, string Name)
+        {
+            List<Category> list;
+            if (storage == "Cache")
+            {
+                list = CacheContent<Category>("CategoryList");
+            }
+            else
+            {
+                list = FromXmlFile<List<Category>>("Category");
+            }
+
+
+            int index = list.FindIndex(f => f.CategoryName == Name);
+
+            list.Remove(list[index]);
+
+
+            if (storage == "Cache")
+            {
+                CacheAdd("CategoryList", list);
+            }
+            else
+            {
+                ToXmlFile(list, "Category");
+            }
+         
+        }
+
+
+
+
+        public string UpdateCategory(string storage, Category cat)
+        {
+            List<Category> list;
+            if (storage == "Cache")
+            {
+                list = CacheContent<Category>("CategoryList");
+            }
+            else
+            {
+                list = FromXmlFile<List<Category>>("Category");
+            }
+
+
+            int index = list.FindIndex(f => f.Id == cat.Id);
+            list[index].CategoryName = cat.CategoryName;
+            
+
+
+            if (storage == "Cache")
+            {
+                CacheAdd("CategoryList", list);
+            }
+            else
+            {
+                ToXmlFile(list, "Category");
+            }
+            return "OK";
+
+        }
+
+
     }
 }
